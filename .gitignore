@@ -1,129 +1,62 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+import random #To import random module
 
-# C extensions
-*.so
+#Creating PC
+class PC:
+    def rps(self):
+        self.rps_ = random.choice(['r', 'p', 's'])
+        return self.rps_
+    def getRPS(self):
+        return self.rps_
+computer = PC()
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+#Scores
+player_score = 0
+computer_score = 0
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+#Initialization
+playGame = input("Hey Traveller, do you want to play rock, paper, scissor game? Type 'y' to play or 'n' to pass! ")
+if playGame.lower() == 'y':
+    play = True
+elif playGame.lower() == 'n':
+    play = False
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+#Game Logic
+while play:    
+    player1 = input("Type 'r' for Rock, 'p' for Paper or 's' for scissor: ")
+    player1 = player1.lower()
+    computer.rps()
+    print("Player : {}, Computer : {}".format(player1, computer.getRPS()))
+    if player1 not in ['r', 'p', 's']:
+        print("Enter valid character!\n")
+    elif player1 == 'r' and computer.getRPS() == 's':
+        player_score += 1
+    elif player1 == 'p' and computer.getRPS() == 'r':
+        player_score += 1
+    elif player1 == 's' and computer.getRPS() == 'p':
+        player_score += 1
+    elif player1 == 'r' and computer.getRPS() == 'p':
+        computer_score += 1
+    elif player1 == 'p' and computer.getRPS() == 's':
+        computer_score += 1
+    elif player1 == 's' and computer.getRPS() == 'r':
+        computer_score += 1
+    else:
+        player_score += 0
+        computer_score += 0
+    print("Player 1 Score: {}, Computer Score : {}\n".format(player_score, computer_score))
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-.python-version
-
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
-
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
+    #Winning Condition
+    if player_score == 15:
+        replay = input("Congratulations, you win!!! Play again? Type 'y' for Yes or 'n' for No: ")
+        if replay.lower() == 'y':
+            player_score = 0
+            computer_score = 0
+        elif replay.lower() == 'n':
+            play = False
+    elif computer_score == 15:
+        replay = input("Computer win, Try again? Type 'y' for Yes or 'n' for No: ")
+        if replay.lower() == 'y':
+            player_score = 0
+            computer_score = 0
+        elif replay.lower() == 'n':
+            play = False
